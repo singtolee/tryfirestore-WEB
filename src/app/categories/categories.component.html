@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-9">
+      <label>Add new category...with order</label>
+      <input class="form-control" type="text" placeholder="add a new Category" [(ngModel)]="newCategoryENG">
+      <input class="form-control" type="text" placeholder="add a new TH Category" [(ngModel)]="newCategoryTH">
+      <input class="form-control" type="text" placeholder="specify order ID" [(ngModel)]="newID">
+      <button type="button" class="btn btn-success btn-lg btn-block" (click)="addNewCategory()">SAVE NEW CATEGORY</button>
+      <br>
+      <div class="list-group">
+        <a class="list-group-item list-group-item-info" *ngFor="let item of cates | async"> {{item.id}}: {{item.name.ENG}}          {{item.name.TH}}</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,23 @@
-<p>
-  upload works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <form role="form" #formData='ngForm'>
+        <fieldset>
+          <div class="form-group">
+            <label class="form-control-label" for="formGroupPrdCate">Selecte Category:</label>
+            <select class="form-control" id="formGroupPrdCate" required [(ngModel)]="newXprd.categoryID" name="formGroupPrdCate">
+              <option *ngFor="let cate of cates | async" [value]="cate.id">{{cate.name.ENG}}</option>
+            </select>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card" style="width:30rem;">
+        <div class="card-body">
+            <p class="card-text">{{newXprd.categoryID}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
