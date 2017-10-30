@@ -1,3 +1,5 @@
+//Xproduct includes xproduct and product properities
+
 import { Theng } from './theng';
 export class Xproduct{
     status:boolean;

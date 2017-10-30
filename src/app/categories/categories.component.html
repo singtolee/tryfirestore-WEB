@@ -1,12 +1,37 @@
+
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12 col-md-9">
-      <label>Add new category...with order</label>
-      <input class="form-control" type="text" placeholder="add a new Category" [(ngModel)]="newCategoryENG">
-      <input class="form-control" type="text" placeholder="add a new TH Category" [(ngModel)]="newCategoryTH">
-      <input class="form-control" type="text" placeholder="specify order ID" [(ngModel)]="newID">
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="addNewCategory()">SAVE NEW CATEGORY</button>
-      <br>
+    <div class="col-sm-12 col-md-6">
+      <h3>Add Product Categories in TH and ENG</h3>
+      <form (ngSubmit)="onSubmit()" #cateForm="ngForm">
+        <div class="form-group">
+          <label for="engCategory">ENG Category</label>
+          <input name="engCategory" type="text" class="form-control" 
+          id="engCategory" [(ngModel)]="newCategoryENG" required
+          #engCategory="ngModel">
+          <div *ngIf="engCategory.touched && !engCategory.valid" class="alert alert-danger">
+          CAN NOT BE EMPTY
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="thCategory">TH Category</label>
+          <input name="thCategory" type="text" class="form-control" 
+          id="thCategory" [(ngModel)]="newCategoryTH" required
+          #thCategory="ngModel">
+          <div *ngIf="thCategory.touched && !thCategory.valid" class="alert alert-danger">
+            CAN NOT BE EMPTY
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="newID">Category ID</label>
+          <input name="newID" type="text" class="form-control" id="newID" [(ngModel)]="newID" required>
+        </div>
+        <button type="button" class="btn btn-success btn-lg btn-block" 
+        [disabled]="!cateForm.form.valid" 
+        (click)="addNewCategory(); cateForm.reset()">SAVE ENG & TH Category</button>
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6">
       <div class="list-group">
         <a class="list-group-item list-group-item-info" *ngFor="let item of cates | async"> {{item.id}}: {{item.name.ENG}}          {{item.name.TH}}</a>
       </div>

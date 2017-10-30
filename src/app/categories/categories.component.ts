@@ -37,9 +37,9 @@ export class CategoriesComponent implements OnInit {
 
   addNewCategory(){
     var ref = this.db.collection('CATEGORIES').doc(this.newID).set({name:{TH:this.newCategoryTH,ENG:this.newCategoryENG},id:this.newID});
-    this.newCategoryENG = '';
-    this.newCategoryTH = '';
-    this.newID = '';
+    //this.newCategoryENG = '';
+    //this.newCategoryTH = '';
+   // this.newID = '';
   }
 
 }
