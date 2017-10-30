@@ -1,73 +1,76 @@
 <div class="container-fluid">
   <div class="row">
-    <div [hidden]="prdSubmitted" class="col-sm-12 col-md-6">
-      <form (ngSubmit)="onSubmit()" #prdForm="ngForm">
-        <div class="form-group">
-          <label for="prdCategory">Select Category</label>
-          <select class="form-control" id="prdCategory" required [(ngModel)]="newXprd.categoryID" name="prdCategory">
-            <option *ngFor="let cate of cates | async" [value]="cate.id">{{cate.name.ENG}}@{{cate.name.TH}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Product ON/OFF</label>
-          <form #f="ngForm">
-            <input type="radio" [value]="true" name="isOn" [(ngModel)]="newXprd.status" checked>ON
-            <input type="radio" [value]="false" name="isOn" [(ngModel)]="newXprd.status">OFF
-          </form>
-        </div>
-        <div class="form-group">
-          <label>Is Refundable</label>
-          <form #ff="ngForm">
-            <input type="radio" [value]="true" name="isRefundable" [(ngModel)]="newXprd.isRefundable" checked>Refundable
-            <input type="radio" [value]="false" name="isRefundable" [(ngModel)]="newXprd.isRefundable">Not Refundable
-          </form>
-        </div>
-        <div class=form-group>
-          <label for="prdPrice">Set Product Price</label>
-          <input type="number" class="form-control" 
-          id="prdPrice" [(ngModel)]="newXprd.price" 
-          name="prdPrice"
-          required min="0">
-        </div>
-        <div class="form-group">
-          <label for="prdEngName">ENG Product Name</label>
-          <input type="text" class="form-control" id="prdEngName" name="prdEngName" [(ngModel)]="newXprd.name.ENG" required>
-        </div>
-        <div class="form-group">
-          <label for="prdThName">TH Product Name</label>
-          <input type="text" class="form-control" id="prdThName" name="prdThName" [(ngModel)]="newXprd.name.TH" required>
-        </div>
-        <div class="form-group">
-          <label for="prdEngDes">ENG Product Description</label>
-          <textarea class="form-control" id="prdEngDes" name="prdEngDes" [(ngModel)]="newXprd.description.ENG" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="prdThDes">TH Product Description</label>
-          <textarea class="form-control" id="prdThDes" name="prdThDes" [(ngModel)]="newXprd.description.TH" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-success" [disabled]="!prdForm.form.valid">Submit</button>
-      </form>
-    </div>
-    <div class="col-sm-12 col-md-6">
-      <div class="card" style="width:30rem;">
-        <div class="card-body">
-          <p class="card-text">{{newXprd.name.ENG}} {{newXprd.name.TH}}</p>
-          <p class="card-text">{{newXprd.description.ENG}}</p>
-          <p class="card-text">{{newXprd.description.TH}}</p>
-          <p class="card-text">{{newXprd.price}} THB</p>
-          <p class="card-text">{{newXprd.categoryID}}</p>
-          <div *ngIf="newXprd.status; else elseBlock1">
-            <span class="badge badge-success">This Product is ON</span>
+    <form (ngSubmit)="onSubmit()" #prdForm="ngForm">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="prdCategory">Select Category</label>
+            <select class="form-control" id="prdCategory" required [(ngModel)]="newXprd.categoryID" name="prdCategory">
+              <option *ngFor="let cate of cates | async" [value]="cate.id">{{cate.name.ENG}}@{{cate.name.TH}}</option>
+            </select>
           </div>
-          <ng-template #elseBlock1><div><span class="badge badge-danger">This Product is OFF</span></div></ng-template>
-          <div *ngIf="newXprd.isRefundable; else elseBlock">
-            <span class="badge badge-success">This Product is Refundable</span>
+          <div class="form-group">
+            <label>Product Status: ON/OFF</label>
+            <form #f="ngForm">
+              <input type="radio" [value]="true" name="isOn" [(ngModel)]="newXprd.status" checked>ON
+              <input type="radio" [value]="false" name="isOn" [(ngModel)]="newXprd.status">OFF
+            </form>
           </div>
-          <ng-template #elseBlock><div><span class="badge badge-danger">This Product is not Refundable</span></div></ng-template>
-          <button [hidden]="!prdSubmitted" type="button" class="btn btn-danger btn-sm" (click)="editXprd()">EDIT</button>
+          <div class="form-group">
+            <label>Is Refundable</label>
+            <form #ff="ngForm">
+              <input type="radio" [value]="true" name="isRefundable" [(ngModel)]="newXprd.isRefundable" checked>Refundable
+              <input type="radio" [value]="false" name="isRefundable" [(ngModel)]="newXprd.isRefundable">Not Refundable
+            </form>
+          </div>
+          <div class=form-group>
+            <label for="prdPrice">Set Product Price</label>
+            <input type="number" class="form-control" 
+              id="prdPrice" [(ngModel)]="newXprd.price" 
+              name="prdPrice"
+              required min="0">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="prdEngName">ENG Product Name</label>
+            <textarea class="form-control" id="prdEngName" name="prdEngName" [(ngModel)]="newXprd.name.ENG" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="prdThName">TH Product Name</label>
+            <textarea class="form-control" id="prdThName" name="prdThName" [(ngModel)]="newXprd.name.TH" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="prdEngDes">ENG Product Description</label>
+            <textarea class="form-control" id="prdEngDes" name="prdEngDes" [(ngModel)]="newXprd.description.ENG" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="prdThDes">TH Product Description</label>
+            <textarea class="form-control" id="prdThDes" name="prdThDes" [(ngModel)]="newXprd.description.TH" required></textarea>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="width:30rem;">
+            <div class="card-body">
+              <p class="card-text">{{newXprd.name.ENG}} {{newXprd.name.TH}}</p>
+              <p class="card-text">{{newXprd.description.ENG}}</p>
+              <p class="card-text">{{newXprd.description.TH}}</p>
+              <p class="card-text">{{newXprd.price}} THB</p>
+              <p class="card-text">{{newXprd.categoryID}}</p>
+              <div *ngIf="newXprd.status; else elseBlock1">
+                <span class="badge badge-success">This Product is ON</span>
+              </div>
+              <ng-template #elseBlock1><div><span class="badge badge-danger">This Product is OFF</span></div></ng-template>
+              <div *ngIf="newXprd.isRefundable; else elseBlock">
+                <span class="badge badge-success">This Product is Refundable</span>
+              </div>
+              <ng-template #elseBlock><div><span class="badge badge-danger">This Product is not Refundable</span></div></ng-template>
+              <button [hidden]="!prdSubmitted" type="button" class="btn btn-danger btn-sm" (click)="editXprd()">EDIT</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!prdForm.form.valid">Submit</button>
+    </form>
   </div>
 </div>
