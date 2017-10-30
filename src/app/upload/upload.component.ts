@@ -8,6 +8,12 @@ import { Xproduct } from '../xproduct';
 import { Sproduct } from '../sproduct';
 import { Theng } from '../theng';
 
+import { Imgupload } from '../Imgupload';
+import { UploadimgService } from '../uploadimg.service';
+
+import * as _ from "lodash";
+import * as firebase from 'firebase';
+
 
 interface Category {
   name:Theng;
@@ -21,6 +27,9 @@ interface Category {
 })
 export class UploadComponent implements OnInit {
 
+  dropzoneActive: boolean = false;
+  currentUpload: Imgupload;
+
   categoriesCol:AngularFirestoreCollection<Category>;
   cates:Observable<Category[]>;
 
@@ -30,9 +39,22 @@ export class UploadComponent implements OnInit {
   newXprd:Xproduct;
   newSprd:Sproduct;
 
-  constructor(private db:AngularFirestore) {
+  constructor(private db:AngularFirestore, private uploadService:UploadimgService) {
     this.newPrd = new Product();
     this.newXprd = new Xproduct();
+    this.currentUpload = new Imgupload();
+  }
+
+  dropzoneState($event: boolean){
+    this.dropzoneActive = $event;
+  }
+
+  handleDrop(fileList: FileList) {
+    //this.currentUpload = new Imgupload(fileList[0],this.newPrd.category,this.newPrd.id);
+    this.currentUpload.file = fileList[0];
+    this.currentUpload.categoryID = this.newXprd.categoryID;
+    //this.currentUpload.prdKey = this.newXprd.prdKey;
+    this.uploadService.pushUpload(this.currentUpload);
   }
 
   ngOnInit() {

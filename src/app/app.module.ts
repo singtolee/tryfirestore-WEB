@@ -9,6 +9,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { routes } from './routes'
 import { AuthService} from './auth.service';
+import { UploadimgService } from './uploadimg.service';
 
 import { AppComponent } from './app.component';
 import { LocationComponent } from './location/location.component';
@@ -16,6 +17,7 @@ import { ConsoleComponent } from './console/console.component';
 import { UploadComponent } from './upload/upload.component';
 import { LoginComponent } from './login/login.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { FileDropDirective } from './file-drop.directive';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCOL_GgaWIYbQAdSvZzF0RH9w8nnQRG_jU",
@@ -33,7 +35,8 @@ export const firebaseConfig = {
     ConsoleComponent,
     UploadComponent,
     LoginComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    FileDropDirective
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,7 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, UploadimgService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
