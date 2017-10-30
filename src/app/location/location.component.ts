@@ -35,8 +35,10 @@ export class LocationComponent implements OnInit {
   }
 
   addNewItem(){
-    this.db.collection('FREEDELIVERYLOCATIONS').add({'name':this.newItem});
-    this.newItem = '';
+    if(this.newItem.length>3){
+      this.db.collection('FREEDELIVERYLOCATIONS').add({'name':this.newItem});
+      this.newItem = '';
+    }
   }
 
   removeAddress(id:string){

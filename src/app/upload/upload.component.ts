@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Product } from '../product';
 import { Xproduct } from '../xproduct';
+import { Sproduct } from '../sproduct';
 import { Theng } from '../theng';
 
 
@@ -23,8 +24,11 @@ export class UploadComponent implements OnInit {
   categoriesCol:AngularFirestoreCollection<Category>;
   cates:Observable<Category[]>;
 
+  prdSubmitted:boolean = false;  //xproduct in editting state
+
   newPrd:Product;
   newXprd:Xproduct;
+  newSprd:Sproduct;
 
   constructor(private db:AngularFirestore) {
     this.newPrd = new Product();
@@ -34,6 +38,14 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
     this.categoriesCol = this.db.collection('CATEGORIES');
     this.cates = this.categoriesCol.valueChanges();
+  }
+
+  onSubmit(formData){
+    this.prdSubmitted = true;
+  }
+
+  editXprd(){
+    this.prdSubmitted = false;
   }
 
 }
