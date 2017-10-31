@@ -3,9 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { Product } from '../product';
 import { Xproduct } from '../xproduct';
-import { Sproduct } from '../sproduct';
 import { Theng } from '../theng';
 
 import { Imgupload } from '../Imgupload';
@@ -33,14 +31,17 @@ export class UploadComponent implements OnInit {
   categoriesCol:AngularFirestoreCollection<Category>;
   cates:Observable<Category[]>;
 
-  prdSubmitted:boolean = false;  //xproduct in editting state
-
-  newPrd:Product;
   newXprd:Xproduct;
-  newSprd:Sproduct;
+
+  //cs QTY ENG TH holder;
+  qty:number=1;
+  eng='';
+  th='';
+
+  //switch submit button
+  prdok:boolean=false;
 
   constructor(private db:AngularFirestore, private uploadService:UploadimgService) {
-    this.newPrd = new Product();
     this.newXprd = new Xproduct();
     this.currentUpload = new Imgupload();
   }
@@ -63,11 +64,71 @@ export class UploadComponent implements OnInit {
   }
 
   onSubmit(formData){
-    this.prdSubmitted = true;
+    //generate a auto produck key first, save to firestore with this key; set this key to newXprd.prdkey, save short product
+    //auto key
+    var ref = this.db.createId();
+    //populate this.newPrd
+    var newSprd = {
+      categoryID : this.newXprd.categoryID,
+      description : {
+        ENG : this.newXprd.description.ENG,
+        TH : this.newXprd.description.TH
+      },
+      mainImgUrl : this.newXprd.mainImgUrl,
+      name : {
+        ENG : this.newXprd.name.ENG,
+        TH : this.newXprd.name.TH
+      },
+      prdKey : ref,
+      price : this.newXprd.price,
+      status : this.newXprd.status
+    };
+
+    var fullPrd = {
+      price : this.newXprd.price,
+      isRefundable : this.newXprd.isRefundable,
+      description : {
+        ENG : this.newXprd.description.ENG,
+        TH : this.newXprd.description.TH
+      },
+      name : {
+        ENG : this.newXprd.name.ENG,
+        TH : this.newXprd.name.TH
+      },
+      infoImgUrls : this.newXprd.infoImgUrls
+    }
+    
+    this.db.collection('FULLPRODUCT').doc(ref).set(fullPrd);
+    this.db.collection('SHORTPRODUCT').add(newSprd);
   }
 
-  editXprd(){
-    this.prdSubmitted = false;
+  deleteImgByUrl(url:string){
+    let imgRef = firebase.storage().refFromURL(url);
+    imgRef.delete().then(()=>{
+      this.currentUpload.url="";
+    }).catch(error=>console.log(error));
+  }
+
+  save2array(){
+    this.newXprd.QTY.push(this.qty);
+    this.newXprd.csENG.push(this.eng);
+    this.newXprd.csTH.push(this.th);
+    this.newXprd.imgUrls.push(this.currentUpload.url);
+    this.th='';
+    this.eng='';
+    //console.log(this.newXprd);
+  }
+
+  setMainImgUrl(url:string){
+    this.newXprd.mainImgUrl = url;
+  }
+
+  add2InfoImgUrls(url:string){
+    this.newXprd.infoImgUrls.push(url);
+  }
+
+  doneEditing(){
+    this.prdok = true;
   }
 
 }

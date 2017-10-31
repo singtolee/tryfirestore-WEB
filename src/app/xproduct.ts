@@ -9,8 +9,8 @@ export class Xproduct{
     prdKey:string;
     categoryID:string;
     //category:string;
-    name:object=new Theng();
-    description:object=new Theng();
+    name=new Theng();
+    description=new Theng();
 
     //full product 
     isRefundable:boolean=true;
