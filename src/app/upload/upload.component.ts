@@ -98,7 +98,20 @@ export class UploadComponent implements OnInit {
       infoImgUrls : this.newXprd.infoImgUrls
     }
     
+    //save partial full prd
     this.db.collection('FULLPRODUCT').doc(ref).set(fullPrd);
+
+    //save array part of full prd
+    for ( var i in this.newXprd.imgUrls) {
+      this.db.collection('FULLPRODUCT').doc(ref).collection('CS').doc(i).set({
+        url : this.newXprd.imgUrls[i],
+        qty : this.newXprd.QTY[i],
+        csENG : this.newXprd.csENG[i],
+        csTH : this.newXprd.csTH[i]
+      }); 
+    }
+
+    //save short version prd
     this.db.collection('SHORTPRODUCT').add(newSprd);
   }
 
