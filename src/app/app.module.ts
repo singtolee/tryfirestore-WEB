@@ -20,12 +20,12 @@ import { CategoriesComponent } from './categories/categories.component';
 import { FileDropDirective } from './file-drop.directive';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCOL_GgaWIYbQAdSvZzF0RH9w8nnQRG_jU",
-  authDomain: "aomai-f24a2.firebaseapp.com",
-  databaseURL: "https://aomai-f24a2.firebaseio.com",
-  projectId: "aomai-f24a2",
-  storageBucket: "aomai-f24a2.appspot.com",
-  messagingSenderId: "1050288730700"
+  apiKey: "AIzaSyBWQpUcKhhU5uWREkAuXCXtQU78nHRU50w",
+  authDomain: "singtostore-77f01.firebaseapp.com",
+  databaseURL: "https://singtostore-77f01.firebaseio.com",
+  projectId: "singtostore-77f01",
+  storageBucket: "singtostore-77f01.appspot.com",
+  messagingSenderId: "863424423308"
 };
 
 @NgModule({
