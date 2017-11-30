@@ -5,13 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 interface Category {
-  name:Name;
-  id:string;
-}
-
-interface Name {
   TH:string;
   ENG:string;
+  id:string;
 }
 
 @Component({
@@ -36,10 +32,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   addNewCategory(){
-    var ref = this.db.collection('CATEGORIES').doc(this.newID).set({name:{TH:this.newCategoryTH,ENG:this.newCategoryENG},id:this.newID});
-    //this.newCategoryENG = '';
-    //this.newCategoryTH = '';
-   // this.newID = '';
+    var ref = this.db.collection('CATEGORIES').doc(this.newID).set({TH:this.newCategoryTH, ENG:this.newCategoryENG, id:this.newID});
   }
 
 }
