@@ -14,7 +14,8 @@ import * as firebase from 'firebase';
 
 
 interface Category {
-  name:Theng;
+  TH:string;
+  ENG:string;
   id:string;
 }
 

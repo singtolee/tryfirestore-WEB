@@ -6,7 +6,7 @@
           <div class="form-group">
             <label for="prdCategory">Select Category</label>
             <select class="form-control" id="prdCategory" required [(ngModel)]="newXprd.categoryID" name="prdCategory">
-              <option *ngFor="let cate of cates | async" [value]="cate.id">{{cate.name.ENG}}@{{cate.name.TH}}</option>
+              <option *ngFor="let cate of cates | async" [value]="cate.id">{{cate.ENG}}@{{cate.TH}}</option>
             </select>
           </div>
           <div class="form-group">
